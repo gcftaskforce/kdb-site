@@ -1,0 +1,56 @@
+<%
+  let opts = {};
+  if (locals.options) {
+    opts = locals.options;
+  }
+
+  const string = (fieldObj) => {
+    return fieldObj.string || '';
+  };
+
+  const text = (fieldObj) => {
+    return fieldObj.text || '';
+  };
+
+  // const optionalField = (fieldObj) => {
+    // if (!fieldObj.text) return '';
+  //   const label = fieldObj.label || '';
+  //   return `<div class="${outerClassName}"><div class="heading-datum">${label}</div><div class="content-datum">${fieldObj.text}</div></div>`;
+  // };
+
+  let list = [];
+  if (locals.data && Array.isArray(locals.data.partnership)) {
+    list = locals.data.partnership;
+  }
+
+%>
+<div class="partnerships" data-id="<%= locals.regionId %>" data-lang="<%= locals.lang %>">
+<% if (list.length) { %>
+  <% list.forEach((datum) => { %>
+    <% if (string(datum.name)) { %>
+      <div class="partnership-container" id="<%= datum.id %>">
+        <div class="box-heading">
+          <span class="box-heading-title">
+            <% if (text(datum.link)) { %>
+              <a target="_blank" href="<%= text(datum.link) %>"><%= string(datum.name) %> <i class="fa fa-external-link-alt"></i></a>
+            <% } else { %>
+              <%= string(datum.name) %>
+            <% } %>
+          </span>
+        </div>
+        <div class="box-content">
+          <div class="partnership-definitions">
+            <%- include('../partials/partnership-text', { datum, propertyName: 'description' }) %>
+            <%- include('../partials/partnership-text', { datum, propertyName: 'initiativeType' }) %>
+            <%- include('../partials/partnership-text', { datum, propertyName: 'initiativeStatus' }) %>
+            <%- include('../partials/partnership-text', { datum, propertyName: 'fundingSource' }) %>
+            <%- include('../partials/partnership-text', { datum, propertyName: 'fundingAmount' }) %>
+            <%- include('../partials/partnership-partners', { datum, propertyName: 'partners' }) %>
+            <%- include('../partials/partnership-jurisdictions', { datum, propertyName: 'jurisdictionalMembership' }) %>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  <% }); %>
+<% } %>
+</div>

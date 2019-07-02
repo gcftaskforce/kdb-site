@@ -1,0 +1,55 @@
+{
+  "name": "kdb-site",
+  "version": "2.0.0",
+  "description": "Website component for Knowledge Database",
+  "main": "bin/www",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "webpack-dev-server --config webpack.dev.config.js --watch",
+    "build": "webpack --config webpack.prod.config.js",
+    "test": "jest --detectOpenHandles --noStackTrace --bail"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gcftaskforce/kdb-site.git"
+  },
+  "author": "D Anderson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gcftaskforce/kdb-site/issues"
+  },
+  "homepage": "https://github.com/gcftaskforce/kdb-site#readme",
+  "devDependencies": {
+    "eslint": "6.0.1",
+    "eslint-config-airbnb": "17.1.1",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-jest": "22.7.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.2"
+  },
+  "dependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/node": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "@babel/preset-react": "7.0.0",
+    "@babel/register": "7.4.4",
+    "babel-loader": "8.0.6",
+    "connect-redis": "3.4.1",
+    "debug": "4.1.1",
+    "dotenv": "8.0.0",
+    "ejs": "2.6.2",
+    "express": "4.17.1",
+    "express-session": "1.16.2",
+    "fs-extra": "8.1.0",
+    "jest": "24.8.0",
+    "klaw-sync": "6.0.0",
+    "lodash": "4.17.11",
+    "node-fetch": "2.6.0",
+    "redis": "2.8.0",
+    "webpack": "4.35.2",
+    "webpack-cli": "3.3.5",
+    "webpack-dev-server": "3.7.2",
+    "whatwg-fetch": "3.0.0"
+  }
+}

@@ -1,0 +1,50 @@
+<%
+  let datumId = '';
+  let datumTimestamp = '';
+  let datumLabel = '';
+  let datumRows = [];
+  let units = '';
+  let citationIndex = 0;
+  let footnoteIndex = 0;
+  if (locals.fieldName && locals.data && Array.isArray(locals.data.array)) {
+    const datum = locals.data.array.find(a => (a.fieldName === locals.fieldName));
+    if (datum) {
+      datumId = datum.id || '';
+      datumTimestamp = datum.timestamp || '';
+      datumLabel = datum.label || '';
+      units = datum.units || '';
+      datumRows = datum.rows || [];
+      if (locals.citations && datum.citation) {
+        citationIndex = locals.citations.push(datum.citation);
+      }
+      if (locals.footnotes && datum.footnote) {
+        footnoteIndex = locals.footnotes.push(datum.footnote);
+      }
+    }
+  }
+  datumRows = datumRows.filter(r => (r.orderIndex !== null));
+  datumRows.sort((a, b) => (a.orderIndex - b.orderIndex));
+%>
+<div class="datum datum-array datum-editable datum-cited"
+  data-id="<%= datumId %>"
+  data-timestamp="<%= datumTimestamp %>">
+  <div class="heading-datum">
+    <%= datumLabel %>
+    <% if (citationIndex) { %> <sup>[<%= citationIndex %>]</sup><% } %>
+    <% if (footnoteIndex) { %> <sup>(<%= footnoteIndex %>)</sup><% } %>
+  </div>
+  <figure>
+    <table class="category">
+      <tbody>
+        <% datumRows.forEach((row) => { %>
+          <tr>
+            <td class="category-label"><%= row.label %></td>
+            <td class="category-amount"><%= row.string %></td>
+            <td class="category-units"><%= units %></td>
+            <td class="category-bar"><div class="bar-container"><div class="bar" style="width:<%= row.percent %>%;">&nbsp;</div></div></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </figure>
+</div>

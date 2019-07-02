@@ -1,0 +1,41 @@
+<%
+  let datumId = '';
+  let datumTimestamp = '';
+  let datumLabel = '';
+  let datumFullName = '';
+  let datumEmail = '';
+  let datumCompanyTitle = '';
+
+  if (locals.fieldName && locals.data && Array.isArray(locals.data.contact)) {
+    const datum = locals.data.contact.find(c => (c.fieldName === locals.fieldName));
+    if (datum) {
+      datumId = datum.id || '';
+      datumTimestamp = datum.timestamp || '';
+      datumLabel = datum.label || '';
+      datumFullName = datum.fullName || '';
+      datumEmail = datum.email || '';
+      datumCompanyTitle = datum.companyTitle || '';
+    }
+  }
+%>
+<div class="datum datum-contact datum-editable"
+  data-id="<%= datumId %>"
+  data-timestamp="<%= datumTimestamp %>">
+  <% if (datumFullName) { %>
+    <div class="heading-datum">
+      <%= datumLabel %>
+    </div>
+    <div class="content-datum">
+      <% if (datumEmail) { %>
+        <a href="mailto:<%= datumEmail %>"><%= datumFullName %></a>
+      <% } else { %>
+        <span><%= datumFullName %></span>
+      <% } %>
+      <% if (datumCompanyTitle) { %>
+        <div>
+          <%= datumCompanyTitle %>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+</div>

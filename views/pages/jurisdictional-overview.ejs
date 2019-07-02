@@ -1,0 +1,83 @@
+<%
+  let populationPercentBadge = '';
+  let forestedPercentBadge = '';
+  let forestAreaPercentOfGlobalBadge = '';
+  let carbonPercentOfGlobalBadge = '';
+  // Set up badges
+  if (locals.data && Array.isArray(locals.data.value)) {
+    let datum;
+    datum = locals.data.value.find(v => (v.fieldName === 'populationPercent'));
+    if (datum && datum.label && datum.amount) populationPercentBadge = `${datum.string} ${datum.label}`;
+    datum = locals.data.value.find(v => (v.fieldName === 'currentForestAreaPercent'));
+    if (datum && datum.label && datum.amount) forestedPercentBadge = `${datum.string} ${datum.label}`;
+    datum = locals.data.value.find(v => (v.fieldName === 'forestAreaPercentOfGlobal'));
+    if (datum && datum.label && datum.amount) forestAreaPercentOfGlobalBadge = `${datum.string} ${datum.label}`;
+    datum = locals.data.value.find(v => (v.fieldName === 'carbonPercentOfGlobal'));
+    if (datum && datum.label && datum.amount) carbonPercentOfGlobalBadge = `${datum.string} ${datum.label}`;
+  }
+%>
+<div class="row">
+  <div class="col-5">
+    <div class="card">
+      <div class="card-body">
+        <%- include('../partials/datum-value', { fieldName: 'land_area', badge: forestedPercentBadge }) %>
+        <%- include('../partials/datum-value', { fieldName: 'deforestationTrend', iconifySign: true }) %>
+
+        <%- include('../partials/datum-value', { fieldName: 'original_forest_area' }) %>
+        <%- include('../partials/datum-value', { fieldName: 'forestArea', badge: forestAreaPercentOfGlobalBadge }) %>
+        <%- include('../partials/datum-value', { fieldName: 'totalAreaDeforested' }) %>
+
+        <%- include('../partials/datum-value', { fieldName: 'forestCarbon', badge: carbonPercentOfGlobalBadge }) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-7">
+    <%- include('../partials/map-panel', { fieldNames: ['deforestation_map', 'biomass_map', 'satellite_map'] }) %>
+  </div>
+</div>
+
+<%- include('../partials/datum-text', { fieldName: 'txt_state_description', headerClass: 'heading-section' }) %> <!-- make this look like a section -->
+
+<%- include('../partials/section-heading', { sectionId: 'contacts' }) %>
+<div class="row">
+  <div class="col">
+    <%- include('../partials/datum-contact', { fieldName: 'representative_1' }) %>
+  </div>
+  <div class="col">
+    <%- include('../partials/datum-contact', { fieldName: 'representative_2' }) %>
+  </div>
+  <div class="col">
+    <%- include('../partials/datum-contact', { fieldName: 'governor' }) %>
+  </div>
+</div>
+
+<%- include('../partials/section-heading', { sectionId: 'demographics' }) %>
+<%- include('../partials/datum-value', { fieldName: 'population', badge: populationPercentBadge }) %>
+<%- include('../partials/array-list', { fieldName: 'urban_vs_rural_population_percent' }) %>
+<%- include('../partials/array-list', { fieldName: 'social_groups_percent' }) %>
+
+<%- include('../partials/section-heading', { sectionId: 'economy' }) %>
+
+<div class="row">
+  <div class="col">
+    <%- include('../partials/datum-value', { fieldName: 'gdp' }) %>
+  </div>
+  <div class="col">
+    <%- include('../partials/datum-value', { fieldName: 'per_capita_income' }) %>
+  </div>
+  <div class="col">
+    <%- include('../partials/datum-value', { fieldName: 'human_development_index' }) %>
+  </div>
+</div>
+
+<%- include('../partials/array-list', { fieldName: 'gdp_breakdown_percent' }) %>
+<%- include('../partials/datum-text', { fieldName: 'main_exports' }) %>
+
+<%- include('../partials/section-heading', { sectionId: 'forestStatus' }) %>
+<%- include('../partials/array-list', { fieldName: 'current_forest_area_typologies' }) %>
+<%- include('../partials/array-list', { fieldName: 'forest_management' }) %>
+<%- include('../partials/deforestation-rate-chart', { fieldName: 'deforestation_rates' }) %>
+<%- include('../partials/datum-text', { fieldName: 'txt_causes_of_deforestation' }) %>
+
+<%- include('../partials/footnote-list') %>
+<%- include('../partials/citation-list') %>

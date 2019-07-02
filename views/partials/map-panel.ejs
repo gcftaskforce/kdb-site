@@ -1,0 +1,24 @@
+<%
+  // const getLabel = (labelDefs, id) => {
+  //   if (!labelDefs || !labelDefs[id]) return id;
+  //   return labelDefs[id].label || id;
+  // };
+%>
+<% if (Array.isArray(locals.fieldNames) && locals.fieldNames.length) { %>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <% locals.fieldNames.forEach((fieldName, fieldIndex) => { %>
+      <li class="nav-item">
+        <a class="nav-link<% if(fieldIndex === 0) { %> show active<% } %>" id="<%= fieldName %>-tab" data-toggle="tab" href="#<%= fieldName %>" role="tab" aria-controls="<%= fieldName %>" aria-selected="true"><%= locals.getTranslation(fieldName) %></a>
+      </li>
+    <% }); %>
+  </ul>
+  <div class="tab-content" id="mapTabContent">
+    <% locals.fieldNames.forEach((fieldName, fieldIndex) => { %>
+      <div class="tab-pane fade<% if(fieldIndex === 0) { %> show active<% } %>" id="<%= fieldName %>" role="tabpanel" aria-labelledby="<%= fieldName %>-tab">
+        <figure class="figure">
+          <img class="img-fluid rounded" alt="<%= locals.getTranslation(fieldName) %>" src="/public/assets/images/maps_and_flags/<%= locals.regionId %>-<%= fieldName %>.png" />
+        </figure>
+      </div>
+    <% }); %>
+  </div>
+<% } %>

@@ -1,0 +1,33 @@
+<%
+  let list = [];
+  const outerClassName = 'datum datum-framework datum-editable framework-container';
+  const headerClassName = 'heading-datum box-heading';
+  let citationIndexes = [];
+  let footnoteIndexes = [];
+
+  if (locals.data && Array.isArray(locals.data.framework)) {
+    list = locals.data.framework;
+    list.forEach((datum) => {
+      if (locals.citations && datum.citation) citationIndexes.push(locals.citations.push(datum.citation));
+      else citationIndexes.push(0);
+      if (locals.footnotes && datum.footnote) footnoteIndexes.push(locals.footnotes.push(datum.footnote));
+      else footnoteIndexes.push(0);
+    });
+  }
+%>
+<% list.forEach((datum, index) => { %>
+  <div
+    class="<%= outerClassName %>"
+    data-id="<%= datum.id %>"
+    data-langs="<%= locals.srcLangs %>">
+    <div class="<%= headerClassName %>">
+      <span class="box-heading-title" style="padding-left: 10px;"><%= datum.label %>
+        <% if (citationIndexes[index]) { %> <sup>[<%= citationIndexes[index] %>]</sup><% } %>
+        <% if (footnoteIndexes[index]) { %> <sup>(<%= footnoteIndexes[index] %>)</sup><% } %>
+      </span>
+    </div>
+    <div class="box-content">
+      <%- datum.text %>
+    </div>
+  </div>
+<% }); %>

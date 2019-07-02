@@ -1,0 +1,13 @@
+<% if (locals.citations && locals.citations.length) { %>
+  <%- include('./section-heading', { sectionId: 'references', fallbackLabel: 'References' }) %>
+  <table class="notes">
+    <tbody>
+      <% locals.citations.forEach((citation, index) => { %>
+        <tr>
+          <td>[<%= index + 1 %>]</td>
+          <td><div class="citation"><%- citation %></div></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } %>

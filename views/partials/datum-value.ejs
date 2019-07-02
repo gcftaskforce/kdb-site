@@ -1,0 +1,64 @@
+<%
+  const MODEL = 'value';
+  let citationIndex = 0;
+  let footnoteIndex = 0;
+  let units = '';
+  let datumId = '';
+  let datumTimestamp = '';
+  let datumLabel = '';
+  let datumString = '';
+  let datumCurrency = '';
+  let signIcon = '';
+  let badge = '';
+  let outerClassName = 'datum datum-value datum-cited';
+  if (locals.fieldName && locals.data && Array.isArray(locals.data.value)) {
+    const datum = locals.data.value.find(v => (v.fieldName === locals.fieldName));
+    if (datum) {
+      if (datum.isDerived === false) outerClassName += ` datum-editable`;
+      datumId = datum.id || '';
+      datumTimestamp = datum.timestamp || '';
+      datumLabel = datum.label || '';
+      datumCurrency = datum.currency || '';
+      datumString = datum.string || '';
+      if (locals.iconifySign && datum.amount) {
+        if (datumString) {
+          if (datumString.includes('-')) {
+            signIcon = '<i style="color:#3CB371;" class="fas fa-minus-circle"></i>';
+            datumString = datumString.replace('-', '').trim();
+          } else {
+            signIcon = '<i style="color: #F95B5E;" class="fas fa-plus-circle"></i>';
+            datumString = datumString.replace('+', '').trim();
+          }
+        }
+      }
+      badge = datum.year || locals.badge || '';
+      if (!locals.hideUnits) units = datum.units || '';
+      if (locals.citations && datum.citation) {
+        citationIndex = locals.citations.push(datum.citation);
+      }
+      if (locals.footnotes && datum.footnote) {
+        footnoteIndex = locals.footnotes.push(datum.footnote);
+      }
+    }
+  }
+%>
+<div
+  class="<%= outerClassName %>"
+  data-id="<%= datumId %>"
+  data-timestamp="<%= datumTimestamp %>">
+  <div class="heading-datum">
+    <span class="datum-label"><%= datumLabel %></span>
+    <% if (citationIndex) { %> <sup>[<%= citationIndex %>]</sup><% } %>
+    <% if (footnoteIndex) { %> <sup>(<%= footnoteIndex %>)</sup><% } %>
+  </div>
+  <div class="content-datum">
+    <% if (datumString) { %>
+      <span class="datum-amount">
+      <%- signIcon %>
+      <% if (datumCurrency) { %><span class="datum-currency"><%= datumCurrency %></span> <% } %>
+      <%= datumString %></span>
+      <% if (units) { %><span class="datum-units"><%= units %></span><% } %>
+      <% if (badge) { %><span class="badge badge-hilight py-2 px-2"><%= badge %></span><% } %>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<%
+  const datum = locals.datum;
+  let rec;
+  if (datum && locals.propertyName) rec = locals.datum[locals.propertyName];
+  const outerClassName = 'datum datum-partnership-jurisdictions';
+%>
+
+<% if (rec && Array.isArray(rec.array)) { %>
+  <div class="<%= outerClassName %>" data-id="<%= datum.id %>" data-property="<%= locals.propertyName %>">
+    <div class="heading-datum"><%= datum.jurisdictionalMembership.label %></div>
+    <div class="content-datum">
+      <% rec.array.forEach((jurisdiction) => { %>
+        <% if (jurisdiction.isMember) { %>
+          <span class="badge badge-hilight py-2 px-2"><%= jurisdiction.name %></span>
+        <% } else { %>
+          <span class="badge badge-hilight-disabled py-2 px-2"><%= jurisdiction.name %></span>
+        <% } %>
+      <% }); %>
+    </div>
+  </div>
+<% } %>

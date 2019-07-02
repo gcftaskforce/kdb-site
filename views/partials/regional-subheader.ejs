@@ -1,0 +1,28 @@
+<%
+  // const lang = locals.lang || 'en';
+  // let navDefs = [];
+  // if (Array.isArray(locals.regionalNavDefs)) {
+  //   navDefs = locals.regionalNavDefs;
+  // }
+
+  let name = '';
+  let nationName = '';
+
+  if (locals.regionDef) {
+    name = locals.regionDef.name || '';
+    nationName = locals.regionDef.nationName || '';
+  }
+%>
+<div class="subheader-panel">
+  <% if (name) {%><span class="panel-title"><%= name %></span><% } %>
+  <% if (nationName) {%><span class="panel-subtitle"><%= nationName %></span><% } %>
+</div>
+<nav class="subheader-nav">
+  <ul class="nav nav-tabs">
+    <% locals.subnavRouteDefs.forEach((nav) => { %>
+      <li class="nav-item <% if (nav.routeName === locals.routeName) {%>active<% } %>">
+        <a aria-expanded="false" class="nav-link" href="<%= locals.getHref({ routeName: nav.routeName }) %>"><%- nav.labels[lang] || nav.labels.en || '' %></a>
+      </li>
+    <% }); %>
+  </ul>
+</nav>

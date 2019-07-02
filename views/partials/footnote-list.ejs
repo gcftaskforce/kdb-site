@@ -1,0 +1,13 @@
+<% if (locals.footnotes && locals.footnotes.length) { %>
+  <%- include('./section-heading', { sectionId: 'notes', fallbackLabel: 'Notes' }) %>
+  <table class="notes">
+    <tbody>
+      <% locals.footnotes.forEach((footnote, index) => { %>
+        <tr>
+          <td>(<%= index + 1 %>)</td>
+          <td><%- footnote %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+<% } %>

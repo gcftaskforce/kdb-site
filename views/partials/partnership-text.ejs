@@ -1,0 +1,18 @@
+<%
+  const datum = locals.datum;
+  let rec;
+  if (datum && locals.propertyName) rec = locals.datum[locals.propertyName];
+  const outerClassName = 'datum datum-partnership datum-text datum-editable';
+%>
+
+<% if (rec) { %>
+<div
+  class="<%= outerClassName %>"
+  data-id="<%= datum.id %>"
+  data-langs="<%= locals.srcLangs %>"
+  data-propertyname="<%= locals.propertyName %>">
+  <div class="heading-datum"><%= rec.label %></div>
+  <div class="content-datum"><%- rec.text %></div>
+</div>
+<% } %>
+

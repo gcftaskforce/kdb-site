@@ -1,0 +1,69 @@
+<%
+  const escapeString = (srcString) => {
+    return srcString.replace(/"/g, '&quot;');
+  };
+  let datum = {};
+  let rows = [];
+  let citationIndex = 0;
+  let footnoteIndex = 0;
+  // data passed to client
+  let deforestationReductionGoal = {};
+  let referenceRate = {};
+  let pastReferenceRates = {};
+  let referenceRates = [];
+  let dataRates = [];
+  // make sure we have data
+  if (!locals.fieldName) return;
+  if (!locals.data) return;
+  if (!Array.isArray(locals.data.array)) return;
+  if (!Array.isArray(locals.data.value)) return;
+  // set up the necessary local variables
+  datum = locals.data.array.find(a => (a.fieldName === locals.fieldName)) || {};
+  if (datum.rows) rows = datum.rows;
+  if (locals.citations && datum.citation) {
+    citationIndex = locals.citations.push(datum.citation);
+  }
+  if (locals.footnotes && datum.footnote) {
+    footnoteIndex = locals.footnotes.push(datum.footnote);
+  }
+  rows.forEach((row) => {
+    dataRates.push({ year: String(row.label), amount: row.amount });
+  });
+  deforestationReductionGoal = locals.data.value.find(v  => (v.fieldName ==='deforestation_reduction_goal')) || {};
+  referenceRate = locals.data.value.find(v  => (v.fieldName ==='deforestationReferenceRate')) || {};
+  pastReferenceRates = locals.data.array.find(v  => (v.fieldName ==='deforestationReferenceRates')) || {};
+  referenceRates = [];
+  (pastReferenceRates.rows || []).forEach((row) => {
+    const amount = row.amount;
+    const year = String(row.label || '');
+    if ((amount !== null) && year) referenceRates.push({ year, amount });
+  });
+  if (referenceRate !== null) {
+    const amount = referenceRate.amount;
+    const year = String(referenceRate.year || '');
+    if ((amount !== null) && year) referenceRates.push({ year, amount });
+  }
+  const deforestationReferenceYear = locals.data.value.find(v  => (v.fieldName ==='deforestationReferenceYear')) || {};
+  const referenceYear = deforestationReferenceYear.year || '';
+%>
+<div class="datum-editable datum-array datum-cited" data-id="<%= datum.id %>" data-timestamp="<%= datum.timestamp %>">
+  <div class="heading-datum">
+    <%= datum.label %>
+    <% if (citationIndex) { %> <sup>[<%= citationIndex %>]</sup><% } %>
+    <% if (footnoteIndex) { %> <sup>(<%= footnoteIndex %>)</sup><% } %>
+  </div>
+  <canvas
+    class="deforestationRateChart"
+    width="960"
+    height="314"
+    data-rates="<%- escapeString(JSON.stringify(dataRates)) %>"
+    data-ratescategorylabel='Year'
+    data-referenceyear="<%- referenceYear %>"
+    data-referencerates="<%- escapeString(JSON.stringify(referenceRates)) %>"
+    data-goalvalue="<%- deforestationReductionGoal.amount || '' %>"
+    data-goalyear="<%- deforestationReductionGoal.year || '' %>"
+    data-goallabel="Rio Branco Declaration Deforestation Reduction Goal"
+    data-referencelabel="Deforestation Reference Rate"
+  >
+  </canvas>
+</div>

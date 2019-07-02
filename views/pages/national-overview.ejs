@@ -1,0 +1,50 @@
+<%
+  // Set up badge for 'percent land area that is forested'
+  let forestedPercentBadge = '';
+  const forestedPercentDatum = locals.data && Array.isArray(locals.data.value) && locals.data.value.find(v => (v.fieldName === 'national_percent_forested'));
+  if (forestedPercentDatum && forestedPercentDatum.label && forestedPercentDatum.amount) {
+    forestedPercentBadge = `${forestedPercentDatum.string} ${forestedPercentDatum.label}`;
+  }
+%>
+
+<div class="row">
+    <div class="col-5">
+      <div class="card">
+        <div class="card-body">
+          <%- include('../partials/datum-value', { fieldName: 'national_land_area', badge: forestedPercentBadge }) %>
+          <%- include('../partials/datum-value', { fieldName: 'deforestationTrend' }) %>
+        </div>
+      </div>
+    </div>
+    <div class="col-7">
+      <%- include('../partials/map-panel', { fieldNames: ['memberstates_map', 'biomass_map', 'satellite_map'] }) %>
+    </div>
+</div>
+
+<%- include('../partials/section-heading', { sectionId: 'demographics' }) %>
+<%- include('../partials/datum-value', { fieldName: 'national_population' }) %>
+<%- include('../partials/array-list', { fieldName: 'national_urban_vs_rural_population_percent' }) %>
+<%- include('../partials/array-list', { fieldName: 'national_social_groups_percent' }) %>
+
+<%- include('../partials/section-heading', { sectionId: 'economy' }) %>
+<div class="row">
+  <div class="col">
+    <%- include('../partials/datum-value', { fieldName: 'national_gdp' }) %>
+  </div>
+  <div class="col">
+    <%- include('../partials/datum-value', { fieldName: 'national_per_capita_income' }) %>
+  </div>
+  <div class="col">
+    <%- include('../partials/datum-value', { fieldName: 'national_human_development_index' }) %>
+  </div>
+</div>
+
+<%- include('../partials/array-list', { fieldName: 'national_gdp_breakdown_percent' }) %>
+<%- include('../partials/datum-text', { fieldName: 'national_main_exports' }) %>
+
+<%- include('../partials/section-heading', { sectionId: 'deforestationDynamicsMonitoring' }) %>
+<%- include('../partials/deforestation-rate-chart', { fieldName: 'national_deforestation_rate' }) %>
+
+<%- include('../partials/footnote-list') %>
+
+<%- include('../partials/citation-list') %>

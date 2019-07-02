@@ -1,0 +1,14 @@
+<%
+  const fallbackLabel = locals.fallbackLabel || '';
+  let sectionLabel = fallbackLabel;
+  let footnoteIndex = 0;
+  const sectionDef = locals.getTranslationDef(locals.sectionId);
+  if (sectionDef) {
+    sectionLabel = sectionDef.label || fallbackLabel;
+    if (sectionDef.footnote) footnoteIndex = locals.footnotes.push(sectionDef.footnote);
+  }
+%>
+<div class="heading-section">
+  <%= sectionLabel %>
+  <% if (footnoteIndex) { %> <sup>(<%= footnoteIndex %>)</sup><% } %>
+</div>

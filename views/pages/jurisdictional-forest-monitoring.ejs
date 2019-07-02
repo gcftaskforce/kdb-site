@@ -1,0 +1,22 @@
+<%
+  // Set up badge for 'percent of global carbon'
+  let carbonPercentOfGlobalBadge = '';
+  const carbonPercentOfGlobalDatum = locals.data && Array.isArray(locals.data.values) && locals.data.values.find(v => (v.fieldName === 'carbonPercentOfGlobal'));
+  if (carbonPercentOfGlobalDatum && carbonPercentOfGlobalDatum.label && carbonPercentOfGlobalDatum.amount) {
+    carbonPercentOfGlobalBadge = `${carbonPercentOfGlobalDatum.string} ${carbonPercentOfGlobalDatum.label}`;
+  }
+%>
+<%- include('../partials/datum-text', { fieldName: 'overviewForestMonitoringAndMeasurementSystems' }) %>
+<%- include('../partials/datum-value', { fieldName: 'forestCarbon', badge: carbonPercentOfGlobalBadge }) %>
+
+<%- include('../partials/section-heading', { sectionId: 'referenceLevelsAndTargets' }) %>
+<%- include('../partials/datum-value', { fieldName: 'deforestationReferenceRate' }) %>
+<%- include('../partials/datum-value', { fieldName: 'tons_of_co2_avoided' }) %>
+<%- include('../partials/datum-value', { fieldName: 'deforestation_reduction_goal' }) %>
+
+<%- include('../partials/section-heading', { sectionId: 'deforestationDynamicsMonitoring' }) %>
+<%- include('../partials/deforestation-rate-chart', { fieldName: 'deforestation_rates' }) %>
+
+<%- include('../partials/footnote-list') %>
+
+<%- include('../partials/citation-list') %>
