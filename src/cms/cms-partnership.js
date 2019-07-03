@@ -1,7 +1,7 @@
-/* global document location */
+/* global document */
 
 const appendButton = require('./lib/append-button');
-const postSubmission = require('./lib/post-submission');
+const postToAPI = require('./lib/post-to-api');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
 
@@ -37,7 +37,7 @@ const onModalSaveJurisdictions = () => {
 const deleteOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postSubmission({ methodName: 'get', id, lang: LANG })
+  postToAPI({ methodName: 'get', id, lang: LANG })
     .then((rec) => {
       displayModal(deleteConfirmModal, { rec }, () => {
         // const submission = parseForm();
@@ -49,7 +49,7 @@ const deleteOnClick = (evt) => {
 const jurisdictionEditOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postSubmission({ methodName: 'get', id, lang: LANG })
+  postToAPI({ methodName: 'get', id, lang: LANG })
     .then((rec) => {
       displayModal(jurisdictionListModal, { rec }, onModalSaveJurisdictions);
     });

@@ -1,7 +1,7 @@
 /* global document */
 
 const appendButton = require('./lib/append-button');
-const postSubmission = require('./lib/post-submission');
+const postToAPI = require('./lib/post-to-api');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
 
@@ -15,7 +15,7 @@ const onModalSave = () => {
 const onClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postSubmission({ methodName: 'get', id })
+  postToAPI({ methodName: 'get', id })
     .then((rec) => {
       displayModal(modal, { rec }, onModalSave);
     });

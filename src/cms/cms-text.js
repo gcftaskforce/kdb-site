@@ -1,7 +1,7 @@
 /* global document */
 
 const appendButton = require('./lib/append-button');
-const postSubmission = require('./lib/post-submission');
+const postToAPI = require('./lib/post-to-api');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
 
@@ -19,7 +19,7 @@ const editOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
   const propertyName = target.getAttribute('data-propertyname') || '';
-  postSubmission({ methodName: 'get', id, lang: LANG })
+  postToAPI({ methodName: 'get', id, lang: LANG })
     .then((rec) => {
       displayModal(editModal, { rec, propertyName }, onModalSave);
     });
@@ -38,7 +38,7 @@ const translateOnClick = (evt) => {
       fromLang,
       toLang,
     };
-    postSubmission(params)
+    postToAPI(params)
       .then(() => {
         // closeModal();
         // location.reload(true);
