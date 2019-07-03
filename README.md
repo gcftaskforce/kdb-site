@@ -16,4 +16,3 @@ The following environment variables are required:
 - **SESSION_NAME** name of session used for authenticated users
 - **SESSION_SECRET** key (salt) for the session
 - **USERS_PATH** absolute path to approved-users JSON file
-

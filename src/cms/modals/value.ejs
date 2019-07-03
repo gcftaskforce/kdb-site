@@ -1,0 +1,70 @@
+<%
+  const rec = locals.rec || {};
+  const id = rec.id || '';
+  const label = rec.label || '';
+  const subType = rec.subType || '';
+  const units = rec.units || '';
+  const string = rec.string || '';
+  const currency = rec.currency || '';
+  const year = rec.year || '';
+  let currencyDisabled = (subType !== 'currency') ? 'disabled' : '';
+  let yearDisabled = (subType !== 'annual') ? 'disabled' : '';
+%>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title"><%= label %></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off" spellcheck="false" class="submission" data-id="<%= id %>">
+          <div class="form-group">
+            <label for="property-string">Amount<% if(units) { %> (<%= units %>)<% } %></label>
+            <input
+              type="text"
+              spellcheck="false"
+              autocomplete="off"
+              class="form-control entity-property"
+              placeholder="Enter amount (number only)"
+              id="property.string"
+              data-property="string"
+              value="<%= string %>">
+          </div>
+          <div class="form-group">
+            <label for="property-currency">Currency</label>
+            <input
+              type="text"
+              spellcheck="false"
+              autocomplete="off"
+              class="form-control entity-property"
+              placeholder="Enter currency (if applicable)"
+              <%= currencyDisabled %>
+              id="property.currency"
+              data-property="currency"
+              value="<%= currency %>">
+          </div>
+          <div class="form-group">
+            <label for="property-year">Year</label>
+            <input
+              type="text"
+              spellcheck="false"
+              autocomplete="off"
+              class="form-control entity-property"
+              placeholder="Enter year or year range (if applicable)"
+              <%= yearDisabled %>
+              id="property.year"
+              data-property="year"
+              value="<%= year %>">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="modal-submit">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

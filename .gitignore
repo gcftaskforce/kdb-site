@@ -1,7 +1,6 @@
 .DS_Store
 node_modules/
 logs/
-src/
 public/assets/
 PRIVATE/
 npm-debug.log
