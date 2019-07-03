@@ -17,8 +17,11 @@ const REGION_ID = (document.getElementById('subheader-regional'))
   : '';
 
 const onModalSaveJurisdictions = () => {
-  const formContext = parseForm();
-  console.log(formContext);
+  const { data, submission } = parseForm();
+  postToAPI('updateEntityProperty', { id: data.id }, submission)
+    .then((responseData) => {
+      console.log(responseData);
+    });
 };
 
 /**
@@ -37,7 +40,7 @@ const onModalSaveJurisdictions = () => {
 const deleteOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postToAPI({ methodName: 'get', id, lang: LANG })
+  postToAPI('get' { id, lang: LANG })
     .then((rec) => {
       displayModal(deleteConfirmModal, { rec }, () => {
         // const submission = parseForm();
@@ -49,7 +52,7 @@ const deleteOnClick = (evt) => {
 const jurisdictionEditOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postToAPI({ methodName: 'get', id, lang: LANG })
+  postToAPI('get', { id, lang: LANG })
     .then((rec) => {
       displayModal(jurisdictionListModal, { rec }, onModalSaveJurisdictions);
     });

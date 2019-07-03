@@ -8,15 +8,13 @@ const FETCH_OPTIONS = {
   credentials: 'include',
 };
 
-module.exports = (params, submission) => {
+module.exports = (methodName, params, submission) => {
   let query = '';
-  let methodName = 'update';
   if (params) {
     const querySlugs = [];
     Object.entries(params).forEach(([name, value]) => {
       if (!value) return;
-      if (name === 'methodName') methodName = encodeURIComponent(value);
-      else querySlugs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+      querySlugs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
     });
     if (querySlugs.length) query = `?${querySlugs.join('&')}`;
   }

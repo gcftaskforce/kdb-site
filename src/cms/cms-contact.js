@@ -8,14 +8,17 @@ const displayModal = require('./lib/display-modal');
 const modal = require('./modals/contact.ejs');
 
 const onModalSave = () => {
-  const formContext = parseForm();
-  console.log(formContext);
+  const { data, submission } = parseForm();
+  postToAPI('updateEntity', { id: data.id }, submission)
+    .then((responseData) => {
+      console.log(responseData);
+    });
 };
 
 const onClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postToAPI({ methodName: 'get', id })
+  postToAPI('get' { id })
     .then((rec) => {
       displayModal(modal, { rec }, onModalSave);
     });

@@ -11,15 +11,22 @@ const confirmModal = require('./modals/translate-confirm.ejs');
 const LANG = document.querySelector('html').getAttribute('lang') || 'en';
 
 const onModalSave = () => {
-  const formContext = parseForm();
-  console.log(formContext);
+  const { data, submission } = parseForm();
+  const params = {
+    id: data.id,
+    lang: LANG,
+  };
+  postToAPI('updateTranslation', params, submission)
+    .then((responseData) => {
+      console.log(responseData);
+    });
 };
 
 const editOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
   const propertyName = target.getAttribute('data-propertyname') || '';
-  postToAPI({ methodName: 'get', id, lang: LANG })
+  postToAPI('get', { id, lang: LANG })
     .then((rec) => {
       displayModal(editModal, { rec, propertyName }, onModalSave);
     });
