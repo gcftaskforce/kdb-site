@@ -1,6 +1,7 @@
 <%
   const rec = locals.rec || {};
   const propertyName = locals.propertyName || '';
+  const submissionPropertyName = propertyName || 'text';
   const id = rec.id || '';
   const label = rec.label || '';
   let text = '';
@@ -21,7 +22,7 @@
       </div>
       <div class="modal-body">
         <form autocomplete="off" spellcheck="false" class="submission" data-id="<%= id %>" data-property="<%= propertyName %>">
-          <div class="summernote summernote-text"  id="summernote.text" data-property="text"><%- text %></div>
+          <div class="summernote summernote-text"  id="summernote.<%= submissionPropertyName %>" data-property="text"><%- text %></div>
         </form>
       </div>
       <div class="modal-footer">
