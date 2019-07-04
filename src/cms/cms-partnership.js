@@ -40,7 +40,7 @@ const onModalSaveJurisdictions = () => {
 const deleteOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postToAPI('get' { id, lang: LANG })
+  postToAPI('get', { id, lang: LANG })
     .then((rec) => {
       displayModal(deleteConfirmModal, { rec }, () => {
         // const submission = parseForm();

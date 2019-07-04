@@ -18,7 +18,7 @@ const onModalSave = () => {
 const onClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postToAPI('get' { id })
+  postToAPI('get', { id })
     .then((rec) => {
       displayModal(modal, { rec }, onModalSave);
     });

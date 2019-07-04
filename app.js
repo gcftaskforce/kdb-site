@@ -91,6 +91,9 @@ if (SESSION_NAME && SESSION_SECRET) {
 */
 fetchJsonData(REGION_DEFS_PATHNAME, process.env.SOURCE_DATA_HOSTNAME)
   .then((data) => {
+    // log the API environment we know which API we're interacting with
+    debug('API environment is:');
+    debug(data.env);
     LANGS = _.get(data, 'env.langs');
     const REGION_DEFS = _.get(data, 'regionDefs', []);
     if (!(Array.isArray(REGION_DEFS) && (REGION_DEFS.length))) {

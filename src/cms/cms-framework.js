@@ -25,7 +25,7 @@ const onModalSave = () => {
 const editOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
-  postToAPI('get', { id })
+  postToAPI('get', { id, lang: LANG })
     .then((rec) => {
       displayModal(editModal, { rec }, onModalSave);
     });
