@@ -41,6 +41,10 @@ Each datum partial in [views/partials/](views/partials/) must include some boile
 
 This populated *citation* array is available to the page views [/views/pages](/views/pages)for display.
 
+## The ```public``` Directory
+
+Document downloads are not included in this repo.
+
 ## CMS
 
 Per client specification, the website includes an embedded CMS. Please refer to [src/cms](src/cms).

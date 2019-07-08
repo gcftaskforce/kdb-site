@@ -16,7 +16,7 @@
     <% locals.fieldNames.forEach((fieldName, fieldIndex) => { %>
       <div class="tab-pane fade<% if(fieldIndex === 0) { %> show active<% } %>" id="<%= fieldName %>" role="tabpanel" aria-labelledby="<%= fieldName %>-tab">
         <figure class="figure">
-          <img class="img-fluid rounded" alt="<%= locals.getTranslation(fieldName) %>" src="/public/assets/images/maps_and_flags/<%= locals.regionId %>-<%= fieldName %>.png" />
+          <img class="img-fluid rounded" alt="<%= locals.getTranslation(fieldName) %>" src="/public/images/maps_and_flags/<%= locals.regionId %>-<%= fieldName %>.png" />
         </figure>
       </div>
     <% }); %>

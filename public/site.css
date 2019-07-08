@@ -2,7 +2,7 @@
 
 body.mod-palm {
   background-color: #384f2c;
-  /* background: #384f2c url(/public/assets/images/site-bg.jpg) top left no-repeat fixed; */
+  /* background: #384f2c url(/public/images/site-bg.jpg) top left no-repeat fixed; */
   background-attachment: fixed;
 }
 
@@ -383,7 +383,7 @@ table.category .bar {
   height: 170px;
   padding: 1rem;
   /* flex-basis: 20%; */
-  background-image: url("/public/assets/images/tropical_square.jpg");
+  background-image: url("/public/images/tropical_square.jpg");
   color: #fff;
 }
 
