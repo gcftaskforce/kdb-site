@@ -34,7 +34,7 @@
     "@babel/cli": "7.5.0",
     "@babel/core": "7.5.0",
     "@babel/node": "7.5.0",
-    "@babel/preset-env": "7.5.0",
+    "@babel/preset-env": "7.5.2",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.4.4",
     "babel-loader": "8.0.6",
@@ -50,7 +50,7 @@
     "lodash": "4.17.11",
     "node-fetch": "2.6.0",
     "redis": "2.8.0",
-    "webpack": "4.35.2",
+    "webpack": "4.35.3",
     "webpack-cli": "3.3.5",
     "webpack-dev-server": "3.7.2",
     "whatwg-fetch": "3.0.0"
