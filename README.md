@@ -8,11 +8,11 @@ Note that the EJS Express middleware is not used. Instead a *context" is build i
 
 ## Environment
 
-The following environment variables are supported. Possible values for a localhost setup are in parenthesis.
+The following environment variables are used. Possible values for a localhost setup are in parenthesis.
 
 - **PORT**  HTTP port the website is run on (3002)
 - **BASE_URI** Used as the base for building internal hrefs (```http://localhost:8080/```)
-- **SOURCE_DATA_HOSTNAME** This references the API (```http://localhost:3001```)
+- **SOURCE_DATA_HOSTNAME** This references the API (```http://localhost:3001``` if a local version of the API is running, otherwise use the live API)
 - **SOURCE_DATA_PATHNAME** This is the API base route name (json)
 - **SITE_VERSION** *optional*
 - **CMS_VERSION** *optional*
@@ -25,7 +25,7 @@ The following environment variables are supported. Possible values for a localho
 
 All required environment variables are checked at startup.
 
-Additionally, a *fetch* request is made to the API to establish REGION_DEFS and LANGS.
+This is an API-based application; the API connection must be established at startup. A *fetch* request is made to the API to set the application-level "constants" REGION_DEFS and LANGS. The application fails early if this *fetch* fails.
 
 ## Translated Content and Labels
 
@@ -43,7 +43,15 @@ This populated *citation* array is available to the page views [/views/pages](/v
 
 ## The ```public``` Directory
 
-Document downloads are not included in this repo.
+### Downloads
+
+Note that the path ```/public/assets/``` is not part of the repository.
+
+The sole subdirectory within this excluded path is ```downloads/```, which contains document downloads referenced in text fields, especially those related to the *Frameworks* section. These files are large and not necessary for website development or operation.
+
+During a data-entry effort, the client acquired a significant number of documents and requested that they be bulk uploaded and made available for linking. A batch script was used to copy these files into an organized "managed" directory, renaming them in deburred snake case during the process. Anticipating the usefulness of the of the original filenames (which correspond to the document titles), an array catalog of the files was maintained. It can be found at [/public/managed-documents.json](/public/managed-documents.json).
+
+The client declined a recommendation to integrate a file upload system into the CMS. Also, the client appears to have simply switched to hosting relevant files on a Google Drive.
 
 ## CMS
 
