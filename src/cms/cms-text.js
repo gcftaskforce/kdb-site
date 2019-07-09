@@ -4,9 +4,9 @@ const appendButton = require('./lib/append-button');
 const postToAPI = require('./lib/post-to-api');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
-
 const editModal = require('./modals/text.ejs');
 const confirmModal = require('./modals/translate-confirm.ejs');
+const reloadLocation = require('./lib/reload-location');
 
 const LANG = document.querySelector('html').getAttribute('lang') || 'en';
 
@@ -18,7 +18,8 @@ const onModalSave = () => {
   };
   postToAPI('updateTranslation', params, submission)
     .then((responseData) => {
-      console.log(responseData);
+      // console.log(responseData);
+      reloadLocation();
     });
 };
 

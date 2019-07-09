@@ -4,14 +4,15 @@ const appendButton = require('./lib/append-button');
 const postToAPI = require('./lib/post-to-api');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
-
+const reloadLocation = require('./lib/reload-location');
 const modal = require('./modals/array.ejs');
 
 const onModalSave = () => {
   const { data, submission } = parseForm();
   postToAPI('updateEntity', { id: data.id }, submission)
     .then((responseData) => {
-      console.log(responseData);
+      // console.log(responseData);
+      reloadLocation();
     });
 };
 

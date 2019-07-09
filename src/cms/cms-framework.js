@@ -7,6 +7,7 @@ const displayModal = require('./lib/display-modal');
 
 const editModal = require('./modals/framework.ejs');
 const confirmModal = require('./modals/translate-confirm.ejs');
+const reloadLocation = require('./lib/reload-location');
 
 const LANG = document.querySelector('html').getAttribute('lang') || 'en';
 
@@ -18,7 +19,8 @@ const onModalSave = () => {
   };
   postToAPI('updateTranslation', params, submission)
     .then((responseData) => {
-      console.log(responseData);
+      reloadLocation();
+      // console.log(responseData);
     });
 };
 

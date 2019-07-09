@@ -8,6 +8,7 @@ const displayModal = require('./lib/display-modal');
 const jurisdictionListModal = require('./modals/partnership-jurisdiction-list.ejs');
 const deleteConfirmModal = require('./modals/partnership-delete-confirm.ejs');
 const partnershipAddForm = require('./forms/partnership-add.ejs');
+const reloadLocation = require('./lib/reload-location');
 
 const LANG = document.querySelector('html').getAttribute('lang') || 'en';
 
@@ -20,7 +21,8 @@ const onModalSaveJurisdictions = () => {
   const { data, submission } = parseForm();
   postToAPI('updateEntityProperty', { id: data.id }, submission)
     .then((responseData) => {
-      console.log(responseData);
+      // console.log(responseData);
+      reloadLocation();
     });
 };
 
