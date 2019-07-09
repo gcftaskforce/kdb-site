@@ -11,8 +11,8 @@ Note that the EJS Express middleware is not used. Instead a *context" is build i
 The following environment variables are supported. Possible values for a localhost setup are in parenthesis.
 
 - **PORT**  HTTP port the website is run on (3002)
-- **BASE_URI** Used as the base for building internal hrefs ( http://localhost:8080/ )
-- **SOURCE_DATA_HOSTNAME** This references the API ( http://localhost:3001 )
+- **BASE_URI** Used as the base for building internal hrefs (```http://localhost:8080/```)
+- **SOURCE_DATA_HOSTNAME** This references the API (```http://localhost:3001```)
 - **SOURCE_DATA_PATHNAME** This is the API base route name (json)
 - **SITE_VERSION** *optional*
 - **CMS_VERSION** *optional*
