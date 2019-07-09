@@ -1,8 +1,15 @@
 <%
   const datum = locals.datum;
   let rec;
-  if (datum && locals.propertyName) rec = locals.datum[locals.propertyName];
-  const outerClassName = 'datum datum-partnership datum-text datum-editable';
+  let text = '';
+  let label = '';
+  if (datum && locals.propertyName) {
+    rec = locals.datum[locals.propertyName];
+    text = (rec.text || '').trim();
+    label = rec.label ||'';
+  }
+  let outerClassName = 'datum datum-partnership datum-text datum-editable';
+  if (!text.length) outerClassName += ' hidden'; // include ability to "hide" empty property fields
 %>
 
 <% if (rec) { %>

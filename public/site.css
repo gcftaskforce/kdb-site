@@ -250,6 +250,14 @@ table.category .bar {
   height: 20px;
 }
 
+.datum-partnership.hidden {
+  display: none; /* do not display empty property fields */
+}
+
+body.cms-enabled .datum-partnership.hidden {
+  display: block; /* display empty property fields in CMS mode */
+}
+
 .partnership-heading {
   width: 100%;
   margin-bottom: 10px;
