@@ -15,6 +15,11 @@ module.exports = (ele, props = {}) => {
     icon.className = props.className || '';
     button.appendChild(icon);
   }
+  if (props.title) {
+    button.setAttribute('title', props.title);
+    button.setAttribute('data-toggle', 'tooltip');
+    $(button).tooltip();
+  }
   if (props.data) {
     Object.entries(props.data).forEach(([attrKey, attrVal]) => {
       button.setAttribute(`data-${attrKey}`, attrVal);

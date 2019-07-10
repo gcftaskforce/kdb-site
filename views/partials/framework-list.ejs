@@ -18,6 +18,7 @@
 <% list.forEach((datum, index) => { %>
   <div
     class="<%= outerClassName %>"
+    data-timestamps="<%= datum.timestamps %>"
     data-id="<%= datum.id %>">
     <div class="<%= headerClassName %>">
       <span class="box-heading-title" style="padding-left: 10px;"><%= datum.label %>

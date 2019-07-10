@@ -4,8 +4,7 @@
   let id = '';
   let citationIndex = 0;
   let footnoteIndex = 0;
-  let timestamp = '';
-  let isGoogle = false;
+  let timestamps = '';
   let lang = '';
   const outerClassName = 'datum datum-text datum-editable datum-cited';
   const headerClassName = 'heading-datum';
@@ -17,8 +16,7 @@
       label = datum.label || '';
       text = datum.text || '';
       lang = datum.lang;
-      // timestamp = datum.timestamp;
-      // isGoogle = timestamp.includes('google');
+      timestamps = datum.timestamps;
       if (locals.citations && datum.citation) {
         citationIndex = locals.citations.push(datum.citation);
       }
@@ -26,12 +24,12 @@
         footnoteIndex = locals.footnotes.push(datum.footnote);
       }
     }
-    // console.log(datum.timestamps, lang);
   }
 %>
 <div
   class="<%= outerClassName %>"
   data-id="<%= id %>"
+  data-timestamps="<%= timestamps %>"
   data-lang="<%= lang %>">
   <div class="<%= headerClassName %>">
     <span class="datum-label"><%= label %></span>

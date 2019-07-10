@@ -12,11 +12,6 @@
     return fieldObj.text || '';
   };
 
-  // const optionalField = (fieldObj) => {
-    // if (!fieldObj.text) return '';
-  //   const label = fieldObj.label || '';
-  //   return `<div class="${outerClassName}"><div class="heading-datum">${label}</div><div class="content-datum">${fieldObj.text}</div></div>`;
-  // };
 
   let list = [];
   if (locals.data && Array.isArray(locals.data.partnership)) {
@@ -28,7 +23,9 @@
 <% if (list.length) { %>
   <% list.forEach((datum) => { %>
     <% if (string(datum.name)) { %>
-      <div class="partnership-container" id="<%= datum.id %>">
+      <div class="partnership-container"
+        data-timestamps="<%= datum.timestamps %>"
+        id="<%= datum.id %>">
         <div class="box-heading">
           <span class="box-heading-title">
             <% if (text(datum.link)) { %>

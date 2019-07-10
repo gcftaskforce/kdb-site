@@ -3,7 +3,9 @@
   let rec;
   let text = '';
   let label = '';
+  let timestamps = '';
   if (datum && locals.propertyName) {
+    timestamps = (datum.timestamps || []).filter(t => (t.includes(propertyName))) || [];
     rec = locals.datum[locals.propertyName];
     text = (rec.text || '').trim();
     label = rec.label ||'';
@@ -16,6 +18,7 @@
 <div
   class="<%= outerClassName %>"
   data-id="<%= datum.id %>"
+  data-timestamps="<%= timestamps %>"
   data-propertyname="<%= locals.propertyName %>">
   <div class="heading-datum"><%= rec.label %></div>
   <div class="content-datum"><%- rec.text %></div>

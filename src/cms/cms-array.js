@@ -5,6 +5,8 @@ const postToAPI = require('./lib/post-to-api');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
 const reloadLocation = require('./lib/reload-location');
+const formatTimestamp = require('./lib/format-timestamp');
+
 const modal = require('./modals/array.ejs');
 
 const onModalSave = () => {
@@ -31,8 +33,10 @@ const onClick = (evt) => {
 
 Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .datum-editable.datum-array') || []).forEach((ele) => {
   const id = ele.getAttribute('data-id');
+  const timestamp = ele.getAttribute('data-timestamp') || '';
   appendButton(ele, {
     className: 'fas fa-sm fa-edit',
+    title: formatTimestamp(timestamp),
     onClick,
     data: {
       id,
