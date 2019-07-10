@@ -10,6 +10,7 @@ const confirmModal = require('./modals/translate-confirm.ejs');
 const reloadLocation = require('./lib/reload-location');
 
 const LANG = document.querySelector('html').getAttribute('lang') || 'en';
+const SRC_LANGS = (document.querySelector('body').getAttribute('data-src-langs') || '').split(',');
 
 const onModalSave = () => {
   const { data, submission } = parseForm();
@@ -48,6 +49,7 @@ const translateOnClick = (evt) => {
     postToAPI(params)
       .then(() => {
         // closeModal();
+        reloadLocation();
         // location.reload(true);
       });
   });
@@ -59,8 +61,7 @@ const translateOnClick = (evt) => {
 
 Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .datum-editable.datum-framework') || []).forEach((ele) => {
   const id = ele.getAttribute('data-id');
-  const langs = (ele.getAttribute('data-langs') || '').split(','); // this was passed as a serialized toString() array
-  langs.forEach((lang) => {
+  SRC_LANGS.forEach((lang) => {
     appendButton(ele, {
       text: lang.toUpperCase(),
       onClick: translateOnClick,

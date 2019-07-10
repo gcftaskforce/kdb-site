@@ -1,19 +1,24 @@
 <%
-  let datumLabel = '';
-  let datumText = '';
-  let datumLocale = {};
-  let datumId = '';
+  let label = '';
+  let text = '';
+  let id = '';
   let citationIndex = 0;
   let footnoteIndex = 0;
+  let timestamp = '';
+  let isGoogle = false;
+  let lang = '';
   const outerClassName = 'datum datum-text datum-editable datum-cited';
   const headerClassName = 'heading-datum';
   if (locals.headerClass) headerClass += ` ${locals.headerClass}`;
   if (locals.fieldName && locals.data && Array.isArray(locals.data.text)) {
     const datum = locals.data.text.find(n => (n.fieldName === locals.fieldName));
     if (datum) {
-      datumId = datum.id || '';
-      datumLabel = datum.label || '';
-      datumText = datum.text || '';
+      id = datum.id || '';
+      label = datum.label || '';
+      text = datum.text || '';
+      lang = datum.lang;
+      // timestamp = datum.timestamp;
+      // isGoogle = timestamp.includes('google');
       if (locals.citations && datum.citation) {
         citationIndex = locals.citations.push(datum.citation);
       }
@@ -21,16 +26,16 @@
         footnoteIndex = locals.footnotes.push(datum.footnote);
       }
     }
+    // console.log(datum.timestamps, lang);
   }
 %>
 <div
   class="<%= outerClassName %>"
-  data-id="<%= datumId %>"
-  data-langs="<%= locals.srcLangs %>">
+  data-id="<%= id %>"
+  data-lang="<%= lang %>">
   <div class="<%= headerClassName %>">
-    <%= datumLabel %>
     <% if (citationIndex) { %> <sup>[<%= citationIndex %>]</sup><% } %>
     <% if (footnoteIndex) { %> <sup>(<%= footnoteIndex %>)</sup><% } %>
   </div>
-  <div class="content-datum"><%- datumText %></div>
+  <div class="content-datum"><%- text %></div>
 </div>
