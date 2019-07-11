@@ -3,8 +3,12 @@
 'use strict';
 
 module.exports = (id) => {
+  if (!id) {
+    window.location.reload();
+    return;
+  }
   let href = window.location.origin;
   if (window.location.pathname) href += window.location.pathname;
-  if (id) href += `?scrollTo=${id}`;
-  window.location.replace(href);
+  href += `?scrollTo=${id}`;
+  window.location.replace(href); // assign() / replace()
 };

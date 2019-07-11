@@ -14,16 +14,4 @@ window.onload = () => {
       rateChart.deforestationRates(ele);
     });
   }
-  if (window.location.search) {
-    const params = {};
-    window.location.search.substring(1).split('&').forEach((item) =>{
-      const [key, value] = item.split('=');
-      if (key && value) params[key] = value;
-    });
-    // console.log(params);
-    if (!params.scrollTo) return;
-    const ele = document.getElementById(params.scrollTo);
-    if (!ele) return;
-    ele.scrollIntoView();
-  }
 };

@@ -27,15 +27,6 @@ const onModalSaveJurisdictions = () => {
 };
 
 /**
- * Inject buttons for editing member jurisdictions
-*/
-
-// Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .datum-editable.datum-partnership') || []).forEach((ele) => {
-//   const id = target.getAttribute('data-id') || '';
-//   // console.log(ele);
-// });
-
-/**
  * Inject buttons for deleting partnership
 */
 
@@ -52,6 +43,10 @@ const deleteOnClick = (evt) => {
       });
     });
 };
+
+/**
+ * Inject buttons for editing member jurisdictions
+*/
 
 const jurisdictionEditOnClick = (evt) => {
   const target = evt.currentTarget;
@@ -105,11 +100,32 @@ if (partnershipsContainer) {
       lang: LANG,
     };
     const submission = { name };
-    // console.log(params, submission);
     postToAPI('insert', params, submission)
       .then((responseData) => {
         reloadLocation(responseData.id);
       });
   };
   document.getElementById('partnership-add').addEventListener('click', addOnClick);
+
+  /**
+   * Check for "scroll"
+  */
+
+  if (window.location.search) {
+    const params = {};
+    window.location.search.substring(1).split('&').forEach((paramString) => {
+      const [key, value] = paramString.split('=');
+      params[key] = value;
+    });
+    if (params.scrollTo) {
+      const ele = document.getElementById(params.scrollTo);
+      if (ele) {
+        ele.scrollIntoView();
+        // clear the search params
+        let href = window.location.origin;
+        if (window.location.pathname) href += window.location.pathname;
+        window.history.replaceState({ id: params.scrollTo }, '', href);
+      }
+    }
+  }
 }
