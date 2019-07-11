@@ -22,7 +22,7 @@
 <div class="partnerships" data-id="<%= locals.regionId %>" data-lang="<%= locals.lang %>">
 <% if (list.length) { %>
   <% list.forEach((datum) => { %>
-    <% if (string(datum.name)) { %>
+    <% if (string(datum.name) || (locals.cmsIsEnabled)) { %>
       <div class="partnership-container"
         data-timestamps="<%= datum.timestamps %>"
         id="<%= datum.id %>">
@@ -37,6 +37,10 @@
         </div>
         <div class="box-content">
           <div class="partnership-definitions">
+            <% if (locals.cmsIsEnabled) { %>
+              <%- include('../partials/partnership-string', { datum, propertyName: 'name' }) %>
+              <%- include('../partials/partnership-string', { datum, propertyName: 'link' }) %>
+            <% } %>
             <%- include('../partials/partnership-text', { datum, propertyName: 'description' }) %>
             <%- include('../partials/partnership-text', { datum, propertyName: 'initiativeType' }) %>
             <%- include('../partials/partnership-text', { datum, propertyName: 'initiativeStatus' }) %>

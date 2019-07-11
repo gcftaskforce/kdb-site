@@ -6,9 +6,8 @@
   const label = rec.label || '';
   let text = '';
   if (propertyName && rec[propertyName]) {
-    text = rec[propertyName].text || '';
-  } else {
-    text = rec.text || '';
+    if (propertyName === 'text') text = rec[propertyName] || '';
+    else text = rec[propertyName].text || '';
   }
 %>
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">

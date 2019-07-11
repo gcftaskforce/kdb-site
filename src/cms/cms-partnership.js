@@ -1,4 +1,4 @@
-/* global document */
+/* global window document */
 
 const appendButton = require('./lib/append-button');
 const postToAPI = require('./lib/post-to-api');
@@ -45,8 +45,10 @@ const deleteOnClick = (evt) => {
   postToAPI('get', { id, lang: LANG })
     .then((rec) => {
       displayModal(deleteConfirmModal, { rec }, () => {
-        // const submission = parseForm();
-        // console.log(submission);
+        postToAPI('delete', { id })
+          .then((responseData) => {
+            reloadLocation();
+          });
       });
     });
 };
@@ -103,7 +105,11 @@ if (partnershipsContainer) {
       lang: LANG,
     };
     const submission = { name };
-    console.log(params, submission);
+    // console.log(params, submission);
+    postToAPI('insert', params, submission)
+      .then((responseData) => {
+        reloadLocation(responseData.id);
+      });
   };
   document.getElementById('partnership-add').addEventListener('click', addOnClick);
 }

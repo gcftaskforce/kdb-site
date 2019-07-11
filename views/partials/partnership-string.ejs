@@ -1,17 +1,17 @@
 <%
   const datum = locals.datum;
   let rec;
-  let text = '';
+  let string = '';
   let label = '';
   let timestamps = '';
   if (datum && locals.propertyName) {
     timestamps = (datum.timestamps || []).filter(t => (t.includes(propertyName))) || [];
     rec = locals.datum[locals.propertyName];
-    text = (rec.text || '').trim();
+    string = (rec.string || '').trim();
     label = rec.label ||'';
   }
-  let outerClassName = 'datum datum-partnership datum-text datum-editable';
-  if (!text.length) outerClassName += ' hidden'; // include ability to "hide" empty property fields
+  let outerClassName = 'datum datum-partnership datum-string datum-editable';
+  if (!string.length) outerClassName += ' hidden'; // include ability to "hide" empty property fields
 %>
 
 <% if (rec) { %>
@@ -21,7 +21,7 @@
   data-timestamps="<%= timestamps %>"
   data-propertyname="<%= locals.propertyName %>">
   <div class="heading-datum"><%= label %></div>
-  <div class="content-datum"><%- text %></div>
+  <div class="content-datum"><%- string %></div>
 </div>
 <% } %>
 
