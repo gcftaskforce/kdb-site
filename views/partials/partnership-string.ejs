@@ -3,14 +3,17 @@
   let rec;
   let string = '';
   let label = '';
+  let lang = '';
   let timestamps = '';
   if (datum && locals.propertyName) {
     timestamps = (datum.timestamps || []).filter(t => (t.includes(propertyName))) || [];
-    rec = locals.datum[locals.propertyName];
+    rec = locals.datum[locals.propertyName] || {};
     string = (rec.string || '').trim();
     label = rec.label ||'';
+    lang = rec.lang || '';
   }
   let outerClassName = 'datum datum-partnership datum-string datum-editable';
+  if (lang) outerClassName += ' datum-translatable';
   if (!string.length) outerClassName += ' hidden'; // include ability to "hide" empty property fields
 %>
 
@@ -18,6 +21,7 @@
 <div
   class="<%= outerClassName %>"
   data-id="<%= datum.id %>"
+  data-lang="<%= lang %>"
   data-timestamps="<%= timestamps %>"
   data-propertyname="<%= locals.propertyName %>">
   <div class="heading-datum"><%= label %></div>

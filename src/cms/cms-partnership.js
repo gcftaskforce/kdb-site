@@ -5,6 +5,7 @@ const postToAPI = require('./lib/post-to-api');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
 
+const stringModal = require('./modals/string.ejs');
 const jurisdictionListModal = require('./modals/partnership-jurisdiction-list.ejs');
 const deleteConfirmModal = require('./modals/partnership-delete-confirm.ejs');
 const partnershipAddForm = require('./forms/partnership-add.ejs');
@@ -26,6 +27,11 @@ const onModalSaveJurisdictions = () => {
     });
 };
 
+const onModalSaveString = () => {
+  const { data, submission } = parseForm();
+  console.log(data, submission);
+};
+
 /**
  * Inject buttons for deleting partnership
 */
@@ -44,10 +50,6 @@ const deleteOnClick = (evt) => {
     });
 };
 
-/**
- * Inject buttons for editing member jurisdictions
-*/
-
 const jurisdictionEditOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
@@ -57,10 +59,31 @@ const jurisdictionEditOnClick = (evt) => {
     });
 };
 
-Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .partnership-container') || []).forEach((ele) => {
-  const id = ele.getAttribute('id');
+const stringEditOnClick = (evt) => {
+  const target = evt.currentTarget;
+  const id = target.getAttribute('data-id') || '';
+  const propertyName = target.getAttribute('data-propertyname') || '';
+  const lang = target.getAttribute('data-lang') || '';
+  const isTranslatable = target.getAttribute('data-istranslatable') || '';
+  postToAPI('get', { id, lang: LANG })
+    .then((rec) => {
+      console.log(rec);
+      displayModal(stringModal, { rec, propertyName }, onModalSaveString);
+    });
+  // postToAPI('get', { id, lang: LANG })
+  //   .then((rec) => {
+  //     displayModal(jurisdictionListModal, { rec }, onModalSaveJurisdictions);
+  //   });
+};
+
+/**
+ * Process each partnership on the page
+*/
+
+Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .partnership-container') || []).forEach((containerEle) => {
+  const id = containerEle.getAttribute('id');
   // inject delete button
-  appendButton(ele, {
+  appendButton(containerEle, {
     className: 'fas fa-sm fa-times-circle',
     selector: '.box-heading',
     onClick: deleteOnClick,
@@ -68,8 +91,28 @@ Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .partnership-
       id,
     },
   });
-  // inject jurisdiction-list edit button
-  const jurisdictionListEle = ele.querySelector('.datum-partnership-jurisdictions');
+
+  /**
+   * Inject buttons for editing strings
+  */
+
+  Array.prototype.slice.call(containerEle.querySelectorAll('.datum-string') || []).forEach((ele) => {
+    const lang = ele.getAttribute('data-lang');
+    const propertyName = ele.getAttribute('data-propertyname');
+    const isTranslatable = Boolean(lang); // translatable fields include a lang attribute
+    appendButton(ele, {
+      className: 'fas fa-sm fa-edit',
+      onClick: stringEditOnClick,
+      data: { id, lang, isTranslatable, propertyName },
+    });
+    // console.log(isTranslatable);
+  });
+
+  /**
+   * Inject button for editing member jurisdictions
+  */
+
+  const jurisdictionListEle = containerEle.querySelector('.datum-partnership-jurisdictions');
   if (jurisdictionListEle) {
     appendButton(jurisdictionListEle, {
       className: 'fas fa-sm fa-edit',
@@ -79,11 +122,12 @@ Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .partnership-
   }
 });
 
+
+const partnershipsContainer = document.querySelector('.cms-enabled .partnerships');
+
 /**
  * Inject form for adding partnership
 */
-
-const partnershipsContainer = document.querySelector('.cms-enabled .partnerships');
 
 if (partnershipsContainer) {
   partnershipsContainer.insertAdjacentHTML('afterbegin', partnershipAddForm({ regionId: REGION_ID }));
