@@ -1,12 +1,13 @@
-
-/* global CLIENT_DATA_ENDPOINT, window, document */
+/* global CLIENT_API_ENDPOINT, window, document */
 /* eslint-env shared-node-browser */
 /* eslint no-console: 0, no-restricted-globals: 0 */
 
 import rateChart from './rate-chart';
-import './cms/index';
+
+const cms = require('./cms/index');
 
 window.onload = () => {
+  cms.render(CLIENT_API_ENDPOINT);
   // build deforestation-rate chart(s)
   const rateChartElements = document.querySelectorAll('.deforestationRateChart');
   if (rateChartElements.length) {

@@ -2,7 +2,7 @@
 
 const appendButton = require('./lib/append-button');
 const appendIcon = require('./lib/append-icon');
-const postToAPI = require('./lib/post-to-api');
+const API = require('./lib/API');
 const parseForm = require('./lib/parse-form');
 const displayModal = require('./lib/display-modal');
 const editModal = require('./modals/text.ejs');
@@ -15,13 +15,15 @@ const isGoogleTimestamp = require('./lib/is-google-timestamp');
 const LANG = document.querySelector('html').getAttribute('lang') || 'en';
 const SRC_LANGS = (document.querySelector('body').getAttribute('data-src-langs') || '').split(',');
 
+let api;
+
 const onModalSave = () => {
   const { data, submission } = parseForm();
   const params = {
     id: data.id,
     lang: LANG,
   };
-  postToAPI('updateTranslation', params, submission)
+  api.post('updateTranslation', params, submission)
     .then((responseData) => {
       // console.log(responseData);
       reloadLocation();
@@ -32,7 +34,7 @@ const editOnClick = (evt) => {
   const target = evt.currentTarget;
   const id = target.getAttribute('data-id') || '';
   const propertyName = target.getAttribute('data-propertyname') || 'text';
-  postToAPI('get', { id, lang: LANG })
+  api.post('get', { id, lang: LANG })
     .then((rec) => {
       displayModal(editModal, { rec, propertyName }, onModalSave);
     });
@@ -51,50 +53,56 @@ const translateOnClick = (evt) => {
       fromLang,
       toLang,
     };
-    postToAPI('translate', params)
+    api.post('translate', params)
       .then(() => {
         reloadLocation();
       });
   });
 };
 
-/**
- * Inject the buttons
-*/
+module.exports = {
+  render: (apiEndpoint) => {
+    api = new API(apiEndpoint);
 
-Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .datum-editable.datum-text') || []).forEach((ele) => {
-  const id = ele.getAttribute('data-id');
-  const propertyName = ele.getAttribute('data-propertyname') || 'text';
-  const timestamps = (ele.getAttribute('data-timestamps') || '').split(',');
-  const timestamp = findTimestamp(timestamps, propertyName, LANG);
-  const isGoogleTranslation = isGoogleTimestamp(timestamp);
-  // console.log(timestamps);
-  SRC_LANGS.forEach((lang) => {
-    appendButton(ele, {
-      text: lang.toUpperCase(),
-      title: `Replace with Google translation using ${lang.toLocaleUpperCase()} as the source`,
-      onClick: translateOnClick,
-      data: {
-        id,
-        fromlang: lang,
-        tolang: LANG,
-        propertyName,
-      },
+    /**
+     * Inject the buttons
+    */
+
+    Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .datum-editable.datum-text') || []).forEach((ele) => {
+      const id = ele.getAttribute('data-id');
+      const propertyName = ele.getAttribute('data-propertyname') || 'text';
+      const timestamps = (ele.getAttribute('data-timestamps') || '').split(',');
+      const timestamp = findTimestamp(timestamps, propertyName, LANG);
+      const isGoogleTranslation = isGoogleTimestamp(timestamp);
+      // console.log(timestamps);
+      SRC_LANGS.forEach((lang) => {
+        appendButton(ele, {
+          text: lang.toUpperCase(),
+          title: `Replace with Google translation using ${lang.toLocaleUpperCase()} as the source`,
+          onClick: translateOnClick,
+          data: {
+            id,
+            fromlang: lang,
+            tolang: LANG,
+            propertyName,
+          },
+        });
+      });
+      appendButton(ele, {
+        className: 'fas fa-sm fa-edit',
+        title: formatTimestamp(timestamp),
+        onClick: editOnClick,
+        data: {
+          id,
+          propertyName,
+          // lang: LANG,
+        },
+      });
+      if (isGoogleTranslation) {
+        appendIcon(ele, {
+          className: 'fab fa-sm fa-google',
+        });
+      }
     });
-  });
-  appendButton(ele, {
-    className: 'fas fa-sm fa-edit',
-    title: formatTimestamp(timestamp),
-    onClick: editOnClick,
-    data: {
-      id,
-      propertyName,
-      // lang: LANG,
-    },
-  });
-  if (isGoogleTranslation) {
-    appendIcon(ele, {
-      className: 'fab fa-sm fa-google',
-    });
-  }
-});
+  },
+};
