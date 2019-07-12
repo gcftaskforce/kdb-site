@@ -51,10 +51,9 @@ const translateOnClick = (evt) => {
       fromLang,
       toLang,
     };
-    postToAPI(params)
+    postToAPI('translate', params)
       .then(() => {
-        // closeModal();
-        // location.reload(true);
+        reloadLocation();
       });
   });
 };

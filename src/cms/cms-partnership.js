@@ -27,9 +27,12 @@ const onModalSaveJurisdictions = () => {
     });
 };
 
-const onModalSaveString = () => {
+const onModalSaveString = (apiRouteName) => {
   const { data, submission } = parseForm();
-  console.log(data, submission);
+  postToAPI(apiRouteName, { id: data.id, lang: LANG }, submission)
+    .then((responseData) => {
+      console.log(responseData);
+    });
 };
 
 /**
@@ -64,16 +67,13 @@ const stringEditOnClick = (evt) => {
   const id = target.getAttribute('data-id') || '';
   const propertyName = target.getAttribute('data-propertyname') || '';
   const lang = target.getAttribute('data-lang') || '';
-  const isTranslatable = target.getAttribute('data-istranslatable') || '';
+  const isTranslatable = Boolean(lang); // only translatable fields include a lang attribute
+
+  const apiRouteName = (isTranslatable) ? 'updateTranslation' : 'updateEntityProperty';
   postToAPI('get', { id, lang: LANG })
     .then((rec) => {
-      console.log(rec);
-      displayModal(stringModal, { rec, propertyName }, onModalSaveString);
+      displayModal(stringModal, { rec, propertyName }, onModalSaveString.bind(null, apiRouteName));
     });
-  // postToAPI('get', { id, lang: LANG })
-  //   .then((rec) => {
-  //     displayModal(jurisdictionListModal, { rec }, onModalSaveJurisdictions);
-  //   });
 };
 
 /**
@@ -99,13 +99,11 @@ Array.prototype.slice.call(document.querySelectorAll('.cms-enabled .partnership-
   Array.prototype.slice.call(containerEle.querySelectorAll('.datum-string') || []).forEach((ele) => {
     const lang = ele.getAttribute('data-lang');
     const propertyName = ele.getAttribute('data-propertyname');
-    const isTranslatable = Boolean(lang); // translatable fields include a lang attribute
     appendButton(ele, {
       className: 'fas fa-sm fa-edit',
       onClick: stringEditOnClick,
-      data: { id, lang, isTranslatable, propertyName },
+      data: { id, lang, propertyName },
     });
-    // console.log(isTranslatable);
   });
 
   /**
