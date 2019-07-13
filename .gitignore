@@ -2,6 +2,7 @@
 node_modules/
 logs/
 public/assets/
+src/cms/
 PRIVATE/
 npm-debug.log
 .env

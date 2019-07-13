@@ -4,7 +4,7 @@
 
 import rateChart from './rate-chart';
 
-const cms = require('./cms/index');
+const cms = require('gcftaskforce-kdb-cms');
 
 window.onload = () => {
   cms.render(CLIENT_API_ENDPOINT);
