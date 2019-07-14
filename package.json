@@ -48,7 +48,6 @@
     "express": "4.17.1",
     "express-session": "1.16.2",
     "fs-extra": "8.1.0",
-    "gcftaskforce-kdb-cms": "github:gcftaskforce/kdb-site-cms",
     "jest": "24.8.0",
     "klaw-sync": "6.0.0",
     "lodash": "4.17.14",
