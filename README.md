@@ -52,7 +52,3 @@ The sole subdirectory within this excluded path is ```downloads/```, which conta
 During a data-entry effort, the client acquired a significant number of documents and requested that they be bulk uploaded and made available for linking. A batch script was used to copy these files into an organized "managed" directory, renaming them in deburred snake case during the process. Anticipating the usefulness of the of the original filenames (which correspond to the document titles), an array catalog of the files was maintained. It can be found at [/public/managed-documents.json](/public/managed-documents.json).
 
 The client declined a recommendation to integrate a file upload system into the CMS. Also, the client appears to have simply switched to hosting relevant files on a Google Drive.
-
-## CMS
-
-Per client specification, the website includes an embedded CMS. Please refer to [src/cms](src/cms).
