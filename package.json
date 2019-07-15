@@ -26,14 +26,6 @@
   },
   "homepage": "https://github.com/gcftaskforce/kdb-site#readme",
   "devDependencies": {
-    "eslint": "6.0.1",
-    "eslint-config-airbnb": "17.1.1",
-    "eslint-plugin-import": "2.18.0",
-    "eslint-plugin-jest": "22.8.0",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.14.2"
-  },
-  "dependencies": {
     "@babel/cli": "7.5.0",
     "@babel/core": "7.5.4",
     "@babel/node": "7.5.0",
@@ -41,6 +33,17 @@
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.4.4",
     "babel-loader": "8.0.6",
+    "eslint": "6.0.1",
+    "eslint-config-airbnb": "17.1.1",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-jest": "22.8.0",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.2",
+    "webpack": "4.35.3",
+    "webpack-cli": "3.3.6",
+    "webpack-dev-server": "3.7.2"
+  },
+  "dependencies": {
     "connect-redis": "3.4.1",
     "debug": "4.1.1",
     "dotenv": "8.0.0",
@@ -53,9 +56,6 @@
     "lodash.get": "4.4.2",
     "node-fetch": "2.6.0",
     "redis": "2.8.0",
-    "webpack": "4.35.3",
-    "webpack-cli": "3.3.6",
-    "webpack-dev-server": "3.7.2",
     "whatwg-fetch": "3.0.0"
   }
 }
