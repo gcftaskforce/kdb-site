@@ -2,7 +2,8 @@
 node_modules/
 logs/
 public/assets/
-kdb-site-cms/
+src/kdb-site-cms/
+src/kdb-rate-chart/
 PRIVATE/
 npm-debug.log
 .env

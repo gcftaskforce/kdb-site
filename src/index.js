@@ -2,9 +2,9 @@
 /* eslint-env shared-node-browser */
 /* eslint no-console: 0, no-restricted-globals: 0 */
 
-import rateChart from './rate-chart';
+import rateChart from './kdb-rate-chart';
 
-const cms = require('../kdb-site-cms');
+const cms = require('./kdb-site-cms');
 
 // the variable 'CLIENT_API_ENDPOINT' must be available to the application (via Webpack plugin)
 
