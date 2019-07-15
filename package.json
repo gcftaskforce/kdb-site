@@ -29,7 +29,7 @@
     "eslint": "6.0.1",
     "eslint-config-airbnb": "17.1.1",
     "eslint-plugin-import": "2.18.0",
-    "eslint-plugin-jest": "22.7.2",
+    "eslint-plugin-jest": "22.8.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.2"
   },
@@ -50,7 +50,7 @@
     "fs-extra": "8.1.0",
     "jest": "24.8.0",
     "klaw-sync": "6.0.0",
-    "lodash": "4.17.14",
+    "lodash.get": "4.4.2",
     "node-fetch": "2.6.0",
     "redis": "2.8.0",
     "webpack": "4.35.3",

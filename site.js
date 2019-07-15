@@ -2,7 +2,7 @@
 
 const debug = require('debug')('site:render');
 const ejs = require('ejs');
-const _ = require('lodash');
+const get = require('lodash.get');
 const path = require('path');
 const fs = require('fs-extra');
 
@@ -149,10 +149,10 @@ const renderPage = async (context, message = '') => {
   // functions
   local.getHref = (options) => {
     return getHref({
-      lang: _.get(options, 'lang', context.lang),
-      routeName: _.get(options, 'routeName', context.routeName),
-      regionId: _.get(options, 'regionId', context.regionId),
-      query: _.get(options, 'query', context.query),
+      lang: get(options, 'lang', context.lang),
+      routeName: get(options, 'routeName', context.routeName),
+      regionId: get(options, 'regionId', context.regionId),
+      query: get(options, 'query', context.query),
     });
   };
   local.getTranslation = (id, property = 'label') => {

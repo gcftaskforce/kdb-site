@@ -11,7 +11,7 @@ const express = require('express');
 const redis = require('redis');
 const ExpressSession = require('express-session');
 const RedisStore = require('connect-redis')(ExpressSession);
-const _ = require('lodash');
+const get = require('lodash.get');
 /**
   functions
 */
@@ -94,8 +94,8 @@ fetchJsonData(REGION_DEFS_PATHNAME, process.env.SOURCE_DATA_HOSTNAME)
     // log the API environment we know which API we're interacting with
     debug('API environment is:');
     debug(data.env);
-    LANGS = _.get(data, 'env.langs');
-    const REGION_DEFS = _.get(data, 'regionDefs', []);
+    LANGS = get(data, 'env.langs');
+    const REGION_DEFS = get(data, 'regionDefs', []);
     if (!(Array.isArray(REGION_DEFS) && (REGION_DEFS.length))) {
       debug('APP_SETUP_ERROR: the API did not return a valid "regionDefs" Array.');
       process.exit(1);
