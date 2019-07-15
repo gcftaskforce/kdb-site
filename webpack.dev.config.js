@@ -6,15 +6,10 @@ require('@babel/register');
 const path = require('path');
 const webpack = require('webpack');
 
-// if (!process.env.SITE_VERSION) {
-//   throw Error('Environment variable "SITE_VERSION" is required.');
-// }
+// this references tha public API and would be useful for fetching data for interactive features (NOT CURRENTLY USED)
+// const CLIENT_DATA_ENDPOINT = 'http://localhost:8080/public/json/';
 
-// if (!process.env.CMS_VERSION) {
-//   throw Error('Environment variable "CMS_VERSION" is required.');
-// }
-
-const CLIENT_DATA_ENDPOINT = 'http://localhost:8080/public/json/';
+// this references the private API used by the CMS
 const CLIENT_API_ENDPOINT = 'http://localhost:3001';
 
 const devServer = {
@@ -59,7 +54,7 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new webpack.DefinePlugin({
-        CLIENT_DATA_ENDPOINT: JSON.stringify(CLIENT_DATA_ENDPOINT),
+        // CLIENT_DATA_ENDPOINT: JSON.stringify(CLIENT_DATA_ENDPOINT),
         CLIENT_API_ENDPOINT: JSON.stringify(CLIENT_API_ENDPOINT),
       }),
     ],
