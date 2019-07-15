@@ -27,6 +27,14 @@ All required environment variables are checked at startup.
 
 This is an API-based application; the API connection must be established at startup. A *fetch* request is made to the API to set the application-level "constants" REGION_DEFS and LANGS. The application fails early if this *fetch* fails.
 
+## Browser-Side Code and Webpack Configuration
+
+The *Deforestation Rates* chart relies on browser-side code. Please see the repository [https://github.com/gcftaskforce/kdb-rate-chart](https://github.com/gcftaskforce/kdb-rate-chart) for details.
+
+Additionally, the inline CMS is rendered browser site. Please see the repository [https://github.com/gcftaskforce/kdb-site-cms](https://github.com/gcftaskforce/kdb-site-cms).
+
+For development and building, these repositories could be cloned into [/src](/src). Notice the **two** Webpack configs [webpack.dev.config.js](webpack.dev.config.js) and [webpack.prod.config.js](webpack.prod.config.js) (for building). These hold their own configuration constants but do not reference any environment variables.
+
 ## Translated Content and Labels
 
 Per client specification, all content must be available in all supported languages. As discussed above, supported languages are available to the application through a *fetch* to the API during application startup.
