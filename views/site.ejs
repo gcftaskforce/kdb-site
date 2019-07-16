@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="<%= locals.lang %>" class="h-100">
   <% include ./partials/head %>
-  <body class="mod-palm d-flex flex-column h-100<% if (locals.cmsIsEnabled) { %> cms-enabled<% } %>" data-src-langs="<%= locals.srcLangs %>">
+  <body
+    class="mod-palm d-flex flex-column h-100<% if (locals.cmsIsEnabled) { %> cms-enabled<% } %>"
+    data-langs="<%= locals.LANGS %>"
+    data-regionid="<%= locals.regionId %>"
+    data-src-langs="<%= locals.srcLangs %>">
     <% include ./partials/header %>
     <main class="flex-shrink-0">
       <div class="container">
