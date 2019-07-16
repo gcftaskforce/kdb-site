@@ -29,9 +29,9 @@
         <div class="box-heading">
           <span class="box-heading-title">
             <% if (text(datum.link)) { %>
-              <a target="_blank" href="<%= text(datum.link) %>"><%= string(datum.name) %> <i class="fa fa-external-link-alt"></i></a>
+              <a target="_blank" href="<%= text(datum.link) %>"><%- string(datum.name) %> <i class="fa fa-external-link-alt"></i></a>
             <% } else { %>
-              <%= string(datum.name) %>
+              <%- string(datum.name) %>
             <% } %>
           </span>
         </div>

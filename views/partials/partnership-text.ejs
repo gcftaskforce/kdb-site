@@ -20,7 +20,9 @@
   data-id="<%= datum.id %>"
   data-timestamps="<%= timestamps %>"
   data-propertyname="<%= locals.propertyName %>.text">
-  <div class="heading-datum"><%= label %></div>
+  <div class="heading-datum">
+    <span class="datum-label"><%= label %></span>
+  </div>
   <div class="content-datum"><%- text %></div>
 </div>
 <% } %>

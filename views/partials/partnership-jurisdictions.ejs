@@ -7,7 +7,9 @@
 
 <% if (rec && Array.isArray(rec.array)) { %>
   <div class="<%= outerClassName %>" data-id="<%= datum.id %>" data-property="<%= locals.propertyName %>">
-    <div class="heading-datum"><%= datum.jurisdictionalMembership.label %></div>
+    <div class="heading-datum">
+      <span class="datum-label"><%= datum.jurisdictionalMembership.label %></span>
+    </div>
     <div class="content-datum">
       <% rec.array.forEach((jurisdiction) => { %>
         <% if (jurisdiction.isMember) { %>

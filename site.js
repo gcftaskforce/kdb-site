@@ -119,8 +119,11 @@ const renderPage = async (context, message = '') => {
   if (context.regionId) subnavRouteDefs = (namespace === 'national') ? NATIONAL_ROUTES : JURISDICTIONAL_ROUTES;
   // these are the langs offered as sources for Google translation
   const srcLangs = [];
-  if (context.lang !== 'en') srcLangs.push('en');
-  if (regionDef && regionDef.lang && (regionDef.lang !== context.lang)) srcLangs.push(regionDef.lang);
+  if (context.lang !== 'en') srcLangs.push('en'); // always include 'en' unless it's the current language
+  // include the current region's lang unless it's 'en', the current lang, or already included
+  if (regionDef && regionDef.lang && (regionDef.lang !== srcLangs[0])) {
+    if ((regionDef.lang !== 'en') && (regionDef.lang !== context.lang)) srcLangs.push(regionDef.lang);
+  }
   // additional "instance" properties as part of context
   const instance = {
     user: context.user,
