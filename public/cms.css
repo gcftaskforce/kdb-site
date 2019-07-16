@@ -34,5 +34,23 @@
 
 .fa-google, .fa-arrows-alt-h {
   color: #666;
-  padding: 0.4rem;
+  padding: .4rem;
+}
+
+.circle {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Override default Bootstrap */
+.dropdown-link {
+  display: inline-block;
+}
+
+.dropdown-link .nav-link {
+  color:#fff;
+  padding: .2rem .6rem;
 }
