@@ -37,12 +37,24 @@
   padding: .4rem;
 }
 
-.circle {
-  height: 25px;
-  width: 25px;
-  background-color: #bbb;
+.translation-badge {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+  background-color: #f9db8e;
   border-radius: 50%;
   display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: .1rem;
+  margin-right: .1rem;
+  text-align: center;
+}
+
+.translation-badge span {
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
 }
 
 /* Override default Bootstrap */
