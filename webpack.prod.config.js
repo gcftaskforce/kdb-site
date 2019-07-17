@@ -10,7 +10,8 @@ const webpack = require('webpack');
 // const CLIENT_DATA_ENDPOINT = 'https://gcftaskforce-database.org/public/json/';
 
 // this references the private API used by the CMS
-const CLIENT_API_ENDPOINT = 'https://gcftaskforce-database.org/api';
+// const CLIENT_API_ENDPOINT = 'https://gcftaskforce-database.org/api';
+const CLIENT_API_ENDPOINT = 'http://34.68.57.233/api';
 
 module.exports = () => {
   const entry = path.resolve(__dirname, 'src', 'index.js');
