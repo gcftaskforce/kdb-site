@@ -32,7 +32,6 @@ const { RegionNotFoundError, RouteNotFoundError } = require('./etc/errors');
   routes and views
 */
 const ROUTE_DEFS = require('./etc/route-defs');
-// const VIEWS = require('./views');
 /**
   site constants
 */
@@ -100,9 +99,12 @@ const assertValidRoute = (context) => {
     const message = pickTranslation(TRANSLATION_DEFS, context.lang || 'en', 'RouteNotFoundError', 'message');
     throw new RouteNotFoundError(Object.assign(context, { routeName: '', regionId: '' }), message);
   }
-  if (context.regionId && !findRegionDefinition(REGION_DEFS, context.regionId)) {
-    const message = pickTranslation(TRANSLATION_DEFS, context.lang || 'en', 'RegionNotFoundError', 'message');
-    throw new RegionNotFoundError(Object.assign(context, { routeName: '', regionId: '' }), message);
+  // if this is a national/regional route, make sure the regionId is valid
+  if (NATIONAL_ROUTE_NAMES.includes(context.routeName) || JURISDICTIONAL_ROUTE_NAMES.includes(context.routeName)) {
+    if (!findRegionDefinition(REGION_DEFS, context.regionId)) {
+      const message = pickTranslation(TRANSLATION_DEFS, context.lang || 'en', 'RegionNotFoundError', 'message');
+      throw new RegionNotFoundError(Object.assign(context, { routeName: '', regionId: '' }), message);
+    }
   }
   return true;
 };

@@ -91,7 +91,7 @@ if (SESSION_NAME && SESSION_SECRET) {
 */
 fetchJsonData(REGION_DEFS_PATHNAME, process.env.SOURCE_DATA_HOSTNAME)
   .then((data) => {
-    // log the API environment we know which API we're interacting with
+    // log the API environment so we know which API we're interacting with
     debug('API environment is:');
     debug(data.env);
     LANGS = get(data, 'env.langs');
@@ -137,7 +137,6 @@ app.use('/:routePrefix?/:routeName?/:regionId?', async (req, res, next) => {
     regionId: '',
     user: req.session.user || '', /* authenticated user (handled by middleware) */
   };
-  // let regionDef;
   const pathSegments = req.baseUrl.split('/');
   pathSegments.splice(0, 1);
   // these are preserved regardless (even through a redirect) so do them first
@@ -161,8 +160,8 @@ app.use('/:routePrefix?/:routeName?/:regionId?', async (req, res, next) => {
     return;
   }
   /**
-    At this point, the route is of the proper form: /lc/routeName/regionId where lc (language code) is 2 characters
-  */
+   At this point, the route is of the proper form: /lc/routeName/regionId where lc (language code) is 2 characters
+   */
   context.lang = pickAvailableLang(LANGS, req, pathSegments[0].toLowerCase());
   context.routeName = pathSegments[1] || '';
   context.regionId = pathSegments[2] || '';
