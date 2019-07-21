@@ -26,16 +26,16 @@ const app = express();
   'hard' application-level constants
 */
 const { SOURCE_DATA_HOSTNAME } = process.env; /** !!!!! THIS IS REQUIRED AND WILL BE CHECKED !!!!! */
-// these necessary for authenticating users to access the CMS
+// the following are necessary for authenticating users to access the CMS
 const {
   USERS_PATH, CMS_AUTHENTICATION_ROUTE, SESSION_NAME, SESSION_SECRET,
 } = process.env;
 const PATH_PREFIX = process.env.PATH_PREFIX || ''; /** optional */
 const SITE_VERSION = process.env.SITE_VERSION || ''; /** optional */
-// const SERVER_START_TIME = getNewTimestamp();
 const REGION_DEFS_PATHNAME = 'json/region-defs.json';
-const PRESERVED_QUERY_STRINGS = ['role', 'token'];
-const SESSION_TTL = 12 * 3600; /** limit edit sessions to 12 hours */
+const PRESERVED_QUERY_STRINGS = ['role', 'token']; // optional query-string keys that will be preserved between requests
+const SESSION_TTL = 12 * 3600; /** limit CMS edit sessions to 12 hours */
+const SETUP_DELAY = 2000; // wait for the API to become available
 /*
   application-level constants ('soft') set using an initial call to the API (below)
 */
@@ -53,7 +53,7 @@ if (!SOURCE_DATA_HOSTNAME) {
 try {
   site.assertValidRouting();
 } catch (err) {
-  debug('APP_SETUP_ERROR: attempt to assert vailid site routing (that each routing definition specifies a view that exists) resulted in the following error:');
+  debug('APP_SETUP_ERROR: attempt to assert valid site routing (that each routing definition specifies a view that exists) resulted in the following error:');
   debug(err);
   process.exit(1);
 }
@@ -89,34 +89,39 @@ if (SESSION_NAME && SESSION_SECRET) {
 /**
   fetch necessary (soft) constants from the API and exit if unable to do so
 */
-fetchJsonData(REGION_DEFS_PATHNAME, process.env.SOURCE_DATA_HOSTNAME)
-  .then((data) => {
-    // log the API environment so we know which API we're interacting with
-    debug('API environment is:');
-    debug(data.env);
-    LANGS = get(data, 'env.langs');
-    const REGION_DEFS = get(data, 'regionDefs', []);
-    if (!(Array.isArray(REGION_DEFS) && (REGION_DEFS.length))) {
-      debug('APP_SETUP_ERROR: the API did not return a valid "regionDefs" Array.');
+const initializeFromAPI = () => {
+  fetchJsonData(REGION_DEFS_PATHNAME, process.env.SOURCE_DATA_HOSTNAME)
+    .then((data) => {
+      // log the API environment so we know which API we're interacting with
+      debug('API environment is:');
+      debug(data.env);
+      LANGS = get(data, 'env.langs');
+      const REGION_DEFS = get(data, 'regionDefs', []);
+      if (!(Array.isArray(REGION_DEFS) && (REGION_DEFS.length))) {
+        debug('APP_SETUP_ERROR: the API did not return a valid "regionDefs" Array.');
+        process.exit(1);
+      }
+      if (!(Array.isArray(LANGS) && (LANGS.length))) {
+        debug('APP_SETUP_WARNING: the API did not return a valid "langs" Array (it is expected inside an "env" Object). The app is running in fallback "en" only mode');
+        LANGS = ['en'];
+      }
+      site.setConstants({
+        SOURCE_DATA_HOSTNAME,
+        PATH_PREFIX,
+        SITE_VERSION,
+        REGION_DEFS,
+        LANGS,
+      });
+    })
+    .catch((err) => {
+      debug('APP_SETUP_ERROR: Call to API failed upon attempt to fetch region defs. The following error response was received:');
+      debug(err);
       process.exit(1);
-    }
-    if (!(Array.isArray(LANGS) && (LANGS.length))) {
-      debug('APP_SETUP_WARNING: the API did not return a valid "langs" Array (it is expected inside an "env" Object). The app is running in fallback "en" only mode');
-      LANGS = ['en'];
-    }
-    site.setConstants({
-      SOURCE_DATA_HOSTNAME,
-      PATH_PREFIX,
-      SITE_VERSION,
-      REGION_DEFS,
-      LANGS,
     });
-  })
-  .catch((err) => {
-    debug('APP_SETUP_ERROR: Call to API failed upon attempt to fetch region defs. The following error response was received:');
-    debug(err);
-    process.exit(1);
-  });
+};
+// delay call to API;
+debug(`waiting ${SETUP_DELAY} ms before fetching from API.`);
+setTimeout(initializeFromAPI, SETUP_DELAY, 'make sure API has time to start');
 /**
   custom middleware
   NOTE: all custom middleware (inside the middleware/ directory) are functions
