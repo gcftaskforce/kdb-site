@@ -11,7 +11,7 @@ const webpack = require('webpack');
 
 // this references the private API used by the CMS
 // const CLIENT_API_ENDPOINT = 'https://gcftaskforce-database.org/api';
-const CLIENT_API_ENDPOINT = 'https://testing.gcftaskforce-database/api';
+const CLIENT_API_ENDPOINT = 'https://testing.gcftaskforce-database.org/api';
 
 module.exports = () => {
   const entry = path.resolve(__dirname, 'src', 'index.js');
