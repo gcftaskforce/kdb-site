@@ -10,8 +10,13 @@ const webpack = require('webpack');
 // const CLIENT_DATA_ENDPOINT = 'https://gcftaskforce-database.org/public/json/';
 
 // this references the private API used by the CMS
-// const CLIENT_API_ENDPOINT = 'https://gcftaskforce-database.org/api';
-const CLIENT_API_ENDPOINT = 'https://testing.gcftaskforce-database.org/api';
+const CLIENT_API_ENDPOINT = process.env.CLIENT_API_ENDPOINT || '';
+
+if (!CLIENT_API_ENDPOINT) {
+  console.log('WARNING: environment variable \'CLIENT_API_ENDPOINT\' has not been set. CMS features will not work!!!!!!');
+} else {
+  console.log(`Building for CLIENT_API_ENDPOINT=${CLIENT_API_ENDPOINT} ... (just sayin')`);
+}
 
 module.exports = () => {
   const entry = path.resolve(__dirname, 'src', 'index.js');

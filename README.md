@@ -14,6 +14,7 @@ The following environment variables are used. Possible values for a localhost se
 - **BASE_URI** Used as the base for building internal hrefs (```http://localhost:8080/```)
 - **SOURCE_DATA_HOSTNAME** This references the API (```http://localhost:3001``` if a local version of the API is running, otherwise use the live API)
 - **SOURCE_DATA_PATHNAME** This is the API base route name (json)
+- **CLIENT_API_ENDPOINT** This is passed to the browser bundle via webpack plugin. It is the URI used by the CMS to interact with the API
 - **SITE_VERSION** *optional*
 - **CMS_VERSION** *optional*
 - **CMS_AUTHENTICATION_ROUTE** The site route name for authenticating users
@@ -33,7 +34,7 @@ The *Deforestation Rates* chart relies on browser-side code. Please see the repo
 
 Additionally, the inline CMS is rendered browser site. Please see the repository [https://github.com/gcftaskforce/kdb-site-cms](https://github.com/gcftaskforce/kdb-site-cms).
 
-For development and building, these repositories could be cloned into [/src](/src). Notice the **two** Webpack configs [webpack.dev.config.js](webpack.dev.config.js) and [webpack.prod.config.js](webpack.prod.config.js) (for building). These hold their own configuration constants but do not reference any environment variables.
+For development and building, these repositories could be cloned into [/src](/src). Notice the **two** Webpack configs [webpack.dev.config.js](webpack.dev.config.js) and [webpack.prod.config.js](webpack.prod.config.js) (for building). [webpack.dev.config.js](webpack.dev.config.js) defines `CLIENT_API_ENDPOINT` and is thus self contained. [webpack.prod.config.js](webpack.prod.config.js) however uses the `CLIENT_API_ENDPOINT` environment variable.
 
 ## Translated Content and Labels
 
