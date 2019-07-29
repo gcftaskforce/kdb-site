@@ -48,7 +48,7 @@ However, string values related to the Website structure are specified in [/etc/t
 
 Each datum partial in [views/partials/](views/partials/) must include some boilerplate to push its record's citation (if included) onto the *context*'s *citation* array.
 
-This populated *citation* array is available to the page views [/views/pages](/views/pages)for display.
+This populated *citation* array is available to the page views [/views/pages](/views/pages) for display.
 
 ## The ```public``` Directory
 
