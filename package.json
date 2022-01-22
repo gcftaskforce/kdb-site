@@ -54,7 +54,7 @@
     "jest": "24.8.0",
     "klaw-sync": "6.0.0",
     "lodash.get": "4.4.2",
-    "node-fetch": "2.6.0",
+    "node-fetch": "3.1.1",
     "redis": "2.8.0",
     "whatwg-fetch": "3.0.0"
   }
